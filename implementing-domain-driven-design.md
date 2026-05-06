@@ -136,3 +136,41 @@ They should be:
 * **Event Store**
   * Append-only storage of events (DB, message store, or specialized tool)
   * Enables **audit history** and **event sourcing** (rebuilding state)
+ 
+## Modules
+ 
+Modules structure the domain model into meaningful, loosely coupled groups, making complex systems easier to understand and evolve.
+
+Key ideas:
+* Reflect **business concepts**, not technical layers
+* Promote **high cohesion** within a module and **low coupling** between modules
+* Provide clear **boundaries and naming** to improve understanding
+* Help manage complexity by structuring large models
+* Maps to 'namespace' in C# or 'package' in Java
+* When the boundary between Module and Bounded Context is fuzzy, prefer Module
+* Name Modules per Ubiquitous Language
+
+Example - Identity & Access Context:
+identityaccess
+├── domain
+│   ├── model
+│   │   ├── identity
+│   │   │   ├── Tenant
+│   │   │   ├── User
+│   │   │   ├── Group
+│   │   │   └── Role
+│   │   │
+│   │   ├── access
+│   │   │   ├── Permission
+│   │   │   └── RoleAssignment
+│   │   │
+│   │   └── common
+│   │       ├── DomainEvent
+│   │       └── Identifier
+│   │
+│   ├── service
+│   │   └── AuthenticationService
+│   │
+│   └── event
+│       ├── UserRegistered
+│       └── TenantProvisioned
