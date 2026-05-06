@@ -123,8 +123,7 @@ They should be:
 * Named in **business language**.
 * Focused on what happened, not how.
 * Published after state changes are committed.
-  
-### Key Points
+
 * **Value vs. Aggregate Events**
   * **Value-based (common):** simple, immutable fact with no lifecycle
   * **Aggregate-like (rare):** used when the event must be tracked, queried, or managed over time
