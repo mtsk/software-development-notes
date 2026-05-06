@@ -124,6 +124,7 @@ They should be:
 * Focused on what happened, not how.
 * Published after state changes are committed.
 
+----
 * **Value vs. Aggregate Events**
   * **Value-based (common):** simple, immutable fact with no lifecycle
   * **Aggregate-like (rare):** used when the event must be tracked, queried, or managed over time
