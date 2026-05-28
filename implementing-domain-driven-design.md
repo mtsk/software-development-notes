@@ -199,8 +199,6 @@ At the center is the **Aggregate Root**:
 * Inside an Aggregate → **strong consistency**
 * Between Aggregates → usually **eventual consistency**
 
----
-
 ### Aggregate Design Example
 
 ```text
@@ -210,4 +208,3 @@ Order (Aggregate Root)
 └── PaymentInformation
 ```
 External code interacts only with `Order`, not directly with `OrderItem`.
----
