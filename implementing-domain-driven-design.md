@@ -175,3 +175,39 @@ identityaccess
 │       ├── UserRegistered
 │       └── TenantProvisioned
 ```
+
+## Aggregates
+
+An Aggregate defines a transactional consistency boundary around related domain objects, with an Aggregate Root enforcing business rules (invariants) and protecting the integrity of the model.
+
+At the center is the **Aggregate Root**:
+
+* The only object accessible from outside the Aggregate
+* Responsible for enforcing consistency rules
+* Controls access to internal Entities and Value Objects
+
+### Key Principles
+
+* Keep Aggregates **small and focused** - large Aggregates cause contention, performance problems, complex transactions, ..
+* Modify only **one Aggregate per transaction** when possible
+* Reference other Aggregates **by identity**, not direct object references
+* Design around **true business invariants**, not object navigation convenience
+* Use **Domain Events** for cross-Aggregate coordination
+
+### Consistency
+
+* Inside an Aggregate → **strong consistency**
+* Between Aggregates → usually **eventual consistency**
+
+---
+
+### Aggregate Design Example
+
+```text
+Order (Aggregate Root)
+├── OrderItem
+├── ShippingAddress
+└── PaymentInformation
+```
+External code interacts only with `Order`, not directly with `OrderItem`.
+---
