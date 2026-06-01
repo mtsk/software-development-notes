@@ -208,3 +208,38 @@ Order (Aggregate Root)
 └── PaymentInformation
 ```
 External code interacts only with `Order`, not directly with `OrderItem`.
+
+## *Factories*
+
+A **Factory** encapsulates the creation of complex domain objects or Aggregates, ensuring they are created in a **valid and consistent state**.
+
+Factories are useful when:
+
+* Object creation is **complex**
+* Multiple objects must be assembled together
+* Creation logic would clutter Entities or Application Services
+* Invariants must be enforced during construction
+
+### Key Principles
+
+* Factories create **fully valid Aggregates**
+* They hide complicated construction details
+* They should express **domain intent**
+* Simple objects usually do **not** need factories
+
+Factories may be implemented as:
+
+* Dedicated Factory classes
+* Static factory methods
+* Aggregate creation methods
+
+## 🧩 Example
+
+```text id="c1j4x7"
+TenantProvisioningFactory
+ ├── creates Tenant
+ ├── creates Administrator User
+ └── assigns initial Role
+```
+
+The caller requests a new Tenant, while the Factory handles all required setup consistently.
