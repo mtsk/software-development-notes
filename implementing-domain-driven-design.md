@@ -240,7 +240,6 @@ A Repository provides the illusion of an **in-memory collection of Aggregates**,
 ### Key Principles
 * A Repository is defined **per Aggregate Root**, not per Entity.
 * It provides simple operations such as:
-
   * `add()`
   * `remove()`
   * `findById()`
@@ -254,6 +253,15 @@ A Repository provides the illusion of an **in-memory collection of Aggregates**,
 * Avoid generic CRUD repositories with numerous arbitrary queries.
 * Avoid exposing persistence concepts (tables, joins, ORM details) to the domain.
 * Use **specialized query services** for complex reporting and read-only views instead of forcing everything through Repositories.
+
+### Collection-Oriented vs. Persistence-Oriented Repositories
+| Collection-Oriented                          | Persistence-Oriented                     |
+| -------------------------------------------- | ---------------------------------------- |
+| Models an in-memory collection of Aggregates | Closely resembles database access        |
+| Domain-focused interface                     | Persistence-focused interface            |
+| Small set of meaningful methods              | Often exposes many CRUD/query operations |
+| Hides storage details completely             | May leak ORM or database concerns        |
+| Preferred by Vernon                          | Generally discouraged                    |
 
 ### Repositories and CQRS
 * **Command side** → Aggregates + Repositories for transactional consistency
