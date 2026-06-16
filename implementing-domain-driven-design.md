@@ -274,5 +274,3 @@ Repository implementations may use:
 * Document databases
 * Event Stores
 * Any persistence mechanism, as long as the domain remains persistence-ignorant
-
----
