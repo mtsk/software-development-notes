@@ -264,7 +264,7 @@ A Repository provides the illusion of an **in-memory collection of Aggregates**,
 
 ### Repositories and CQRS
 * **Command side** → Aggregates + Repositories for transactional consistency
-* **Query side** → Optimized read models and query services (implemented as Application Services)
+* **Query side** → Optimized read models and query services (implemented as Application Services, they may return DTOs or view models rather than Aggregates)
 
 This separation keeps Repositories simple and focused on consistency.
 
