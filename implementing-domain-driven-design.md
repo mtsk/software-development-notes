@@ -177,17 +177,14 @@ identityaccess
 ```
 
 ## Aggregates
-
 An Aggregate defines a transactional consistency boundary around related domain objects, with an Aggregate Root enforcing business rules (invariants) and protecting the integrity of the model.
 
 At the center is the **Aggregate Root**:
-
 * The only object accessible from outside the Aggregate
 * Responsible for enforcing consistency rules
 * Controls access to internal Entities and Value Objects
 
 ### Key Principles
-
 * Keep Aggregates **small and focused** - large Aggregates cause contention, performance problems, complex transactions, ..
 * Modify only **one Aggregate per transaction** when possible
 * Reference other Aggregates **by identity**, not direct object references
@@ -195,12 +192,10 @@ At the center is the **Aggregate Root**:
 * Use **Domain Events** for cross-Aggregate coordination
 
 ### Consistency
-
 * Inside an Aggregate → **strong consistency**
 * Between Aggregates → usually **eventual consistency**
 
 ### Aggregate Design Example
-
 ```text
 Order (Aggregate Root)
 ├── OrderItem
@@ -210,31 +205,26 @@ Order (Aggregate Root)
 External code interacts only with `Order`, not directly with `OrderItem`.
 
 ## Factories
-
 A **Factory** encapsulates the creation of complex domain objects or Aggregates, ensuring they are created in a **valid and consistent state**.
 
 Factories are useful when:
-
 * Object creation is **complex**
 * Multiple objects must be assembled together
 * Creation logic would clutter Entities or Application Services
 * Invariants must be enforced during construction
 
 ### Key Principles
-
 * Factories create **fully valid Aggregates**
 * They hide complicated construction details
 * They should express **domain intent**
 * Simple objects usually do **not** need factories
 
 Factories may be implemented as:
-
 * Dedicated Factory classes
 * Static factory methods
 * Aggregate creation methods
 
 ### Example
-
 ```text id="c1j4x7"
 TenantProvisioningFactory
  ├── creates Tenant
@@ -243,3 +233,44 @@ TenantProvisioningFactory
 ```
 
 The caller requests a new Tenant, while the Factory handles all required setup consistently.
+
+## Repositories
+A Repository provides the illusion of an **in-memory collection of Aggregates**, hiding persistence details from the domain model. It provides access to Aggregate Roots while hiding persistence details, allowing the domain model to focus on business logic and consistency rather than storage concerns.
+
+### Key Principles
+* A Repository is defined **per Aggregate Root**, not per Entity.
+* It provides simple operations such as:
+
+  * `add()`
+  * `remove()`
+  * `findById()`
+  * selected business-oriented queries
+* The **domain depends only on the Repository interface**; the implementation belongs to the infrastructure layer.
+* Repositories should return **fully initialized Aggregates**.
+
+### Repository Design Guidelines
+* Create **one Repository per Aggregate Root**.
+* Retrieve Aggregates primarily by their **identity**.
+* Avoid generic CRUD repositories with numerous arbitrary queries.
+* Avoid exposing persistence concepts (tables, joins, ORM details) to the domain.
+* Use **specialized query services** for complex reporting and read-only views instead of forcing everything through Repositories.
+
+### Repositories and CQRS
+* **Command side** → Aggregates + Repositories for transactional consistency
+* **Query side** → Optimized read models and query services
+
+This keeps Repositories focused on preserving domain integrity rather than serving every reporting requirement.
+
+### Implementation
+Repository implementations may use:
+* Relational databases with an ORM
+* Document databases
+* Event Stores
+* Any persistence mechanism, as long as the domain remains persistence-ignorant
+
+---
+
+## 🔑 In Short
+
+
+
