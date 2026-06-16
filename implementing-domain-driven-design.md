@@ -264,9 +264,8 @@ A Repository provides the illusion of an **in-memory collection of Aggregates**,
 
 ### Repositories and CQRS
 * **Command side** → Aggregates + Repositories for transactional consistency
-* **Query side** → Optimized read models and query services
-
-This keeps Repositories focused on preserving domain integrity rather than serving every reporting requirement.
+* **Query side** → Optimized read models and query services, implement as Application Services
+This separation keeps Repositories simple and focused on consistency.
 
 ### Implementation
 Repository implementations may use:
@@ -276,8 +275,3 @@ Repository implementations may use:
 * Any persistence mechanism, as long as the domain remains persistence-ignorant
 
 ---
-
-## 🔑 In Short
-
-
-
