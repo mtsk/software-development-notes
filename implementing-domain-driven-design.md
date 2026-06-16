@@ -255,13 +255,12 @@ A Repository provides the illusion of an **in-memory collection of Aggregates**,
 * Use **specialized query services** for complex reporting and read-only views instead of forcing everything through Repositories.
 
 ### Collection-Oriented vs. Persistence-Oriented Repositories
-| Collection-Oriented                          | Persistence-Oriented                     |
+| Collection-Oriented (Preferred by Vernon)    | Persistence-Oriented                     |
 | -------------------------------------------- | ---------------------------------------- |
 | Models an in-memory collection of Aggregates | Closely resembles database access        |
 | Domain-focused interface                     | Persistence-focused interface            |
 | Small set of meaningful methods              | Often exposes many CRUD/query operations |
 | Hides storage details completely             | May leak ORM or database concerns        |
-| Preferred by Vernon                          | Generally discouraged                    |
 
 ### Repositories and CQRS
 * **Command side** → Aggregates + Repositories for transactional consistency
