@@ -274,3 +274,40 @@ Repository implementations may use:
 * Document databases
 * Event Stores
 * Any persistence mechanism, as long as the domain remains persistence-ignorant
+
+## Integrating Bounded Contexts
+Bounded Contexts should integrate through explicit contracts while protecting their own models, using translation and messaging where necessary to minimize coupling. Expose only what the consuming context needs to fulfill its use case.
+
+### Key Points
+* **Integration is based on contracts** — contexts communicate through well-defined APIs, messages, or events.
+* **Translate between models** when concepts have different meanings in each context.
+* **Domain Events** are useful for asynchronous communication and eventual consistency.
+* **Messaging** can decouple contexts and allow them to evolve independently.
+* **Anti-Corruption Layers** can isolate a context from an external model or legacy system.
+* Integration should avoid **shared domain objects or databases**, which create strong coupling.
+* Choose **synchronous vs. asynchronous** communication based on business requirements and consistency needs.
+
+### Integration Mechanisms
+| Mechanism                       | Purpose                                                                                                                      |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **REST / HTTP**                 | Synchronous communication through a well-defined API; simple and widely applicable, but creates runtime dependency.          |
+| **Messaging**                   | Asynchronous communication through messages; reduces coupling and supports eventual consistency.                             |
+| **Domain Events**               | Notify other contexts that an important business event occurred; useful for triggering reactions without direct coupling.    |
+| **Anti-Corruption Layer (ACL)** | Translates an external model into the local model, protecting the consuming context from unwanted concepts and dependencies. |
+| **Open Host Service**           | A context exposes a well-defined service/API for other contexts to consume.                                                  |
+| **Published Language**          | Uses a commonly understood data format or protocol between contexts, avoiding dependence on internal models.                 |
+| **Shared Kernel**               | Two contexts deliberately share a small, agreed-upon part of their model/code; requires careful coordination.                |
+| **Separate Ways**               | No integration is implemented when the cost of integration outweighs its value.                                              |
+
+**Use synchronous REST when an immediate response is needed; use messaging and Domain Events when loose coupling and eventual consistency are preferable; use an ACL when another context's model must be translated and isolated.**
+
+### Long-Running Processes
+A Long-Running Process coordinates a business workflow that spans multiple steps, transactions, or Bounded Contexts and cannot be completed in a single transaction.
+
+### Key Points
+* The process is usually driven by **Domain Events or messages**.
+* Each step performs its own local transaction and triggers the next step.
+* Because multiple systems are involved, **eventual consistency** is expected.
+* The process should handle **failures, retries, and duplicate messages**.
+* A **Process Manager / Saga** can coordinate the workflow and keep track of its progress.
+* Avoid distributed transactions where possible; instead, use **compensating actions** when a later step fails.
