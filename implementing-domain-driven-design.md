@@ -299,12 +299,11 @@ Bounded Contexts should integrate through explicit contracts while protecting th
 | **Shared Kernel**               | Two contexts deliberately share a small, agreed-upon part of their model/code; requires careful coordination.                |
 | **Separate Ways**               | No integration is implemented when the cost of integration outweighs its value.                                              |
 
-**Use synchronous REST when an immediate response is needed; use messaging and Domain Events when loose coupling and eventual consistency are preferable; use an ACL when another context's model must be translated and isolated.**
+Use synchronous REST when an immediate response is needed; use messaging and Domain Events when loose coupling and eventual consistency are preferable; use an ACL when another context's model must be translated and isolated.
 
 ### Long-Running Processes
 A Long-Running Process coordinates a business workflow that spans multiple steps, transactions, or Bounded Contexts and cannot be completed in a single transaction.
 
-### Key Points
 * The process is usually driven by **Domain Events or messages**.
 * Each step performs its own local transaction and triggers the next step.
 * Because multiple systems are involved, **eventual consistency** is expected.
