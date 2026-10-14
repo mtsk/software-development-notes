@@ -333,3 +333,48 @@ Aggregates and domain services make business decisions.
 
 Smell to avoid:
 If an application service contains many if, switch, calculations, or business rules, the domain model is becoming anemic. Business logic should move into aggregates or domain services.
+```text
++-------------------+
+|  User / API / UI  |
++---------+---------+
+          |
+          v
++---------------------------+
+|    Application Service    |
+|---------------------------|
+| - Transaction Boundary    |
+| - Security                |
+| - Orchestration           |
+| - DTO Mapping             |
++-------------+-------------+
+              |
+     +--------+--------+
+     |                 |
+     v                 v
++-----------+   +--------------+
+| Repository|   | Domain Service|
++-----+-----+   +------+-------+
+      |                |
+      v                |
++----------------------+
+|      Aggregate       |
+|----------------------|
+| Entities             |
+| Value Objects        |
+| Business Invariants  |
++-----------+----------+
+            |
+            v
++----------------------+
+|    Domain Events     |
++-----------+----------+
+            |
+            v
++----------------------+
+| Infrastructure       |
+|----------------------|
+| Database             |
+| Message Bus          |
+| External Systems     |
++----------------------+
+```
