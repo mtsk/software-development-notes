@@ -351,9 +351,9 @@ If an application service contains many if, switch, calculations, or business ru
      +--------+--------+
      |                 |
      v                 v
-+-----------+   +--------------+
-| Repository|   | Domain Service|
-+-----+-----+   +------+-------+
++------------+   +----------------+
+| Repository |   | Domain Service |
++-----+------+   +------+---------+
       |                |
       v                |
 +----------------------+
