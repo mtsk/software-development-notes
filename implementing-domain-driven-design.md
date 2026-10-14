@@ -310,3 +310,26 @@ A Long-Running Process coordinates a business workflow that spans multiple steps
 * The process should handle **failures, retries, and duplicate messages**.
 * A **Process Manager / Saga** can coordinate the workflow and keep track of its progress.
 * Avoid distributed transactions where possible; instead, use **compensating actions** when a later step fails.
+
+## Application
+The Application Layer orchestrates use cases by coordinating aggregates, repositories, and infrastructure, while keeping business rules inside the Domain Model.
+
+* Purpose of the Application Layer:
+* Executes use cases.
+* Coordinates domain objects.
+* Manages transactions, security, and infrastructure concerns.
+* Contains little or no business logic.
+
+Application Service responsibilities:
+* Receive command/request.
+* Load aggregates via repositories.
+* Invoke domain behavior.
+* Save changes.
+* Publish events.
+* Return DTOs/results.
+
+Application services coordinate.
+Aggregates and domain services make business decisions.
+
+Smell to avoid:
+If an application service contains many if, switch, calculations, or business rules, the domain model is becoming anemic. Business logic should move into aggregates or domain services.
