@@ -314,7 +314,7 @@ A Long-Running Process coordinates a business workflow that spans multiple steps
 ## Application
 The Application Layer orchestrates use cases by coordinating aggregates, repositories, and infrastructure, while keeping business rules inside the Domain Model.
 
-* Purpose of the Application Layer:
+Purpose of the Application Layer:
 * Executes use cases.
 * Coordinates domain objects.
 * Manages transactions, security, and infrastructure concerns.
