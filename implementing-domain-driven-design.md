@@ -333,3 +333,14 @@ Aggregates and domain services make business decisions.
 
 Smell to avoid:
 If an application service contains many if, switch, calculations, or business rules, the domain model is becoming anemic. Business logic should move into aggregates or domain services.
+
+## Appendix A: Aggregates and Event Sourcing
+Event Sourcing persists an Aggregate's state as a sequence of immutable Domain Events (Aggregate changes) rather than storing only its latest state. The current state is reconstructed by replaying those events.
+
+### **Key Principles**
+- **Event Store:** Stores events in append-only streams, typically organized by Aggregate ID.
+- **Aggregate Reconstruction:** Rebuilds Aggregate state by replaying its events.
+- **Concurrency Control:** Uses event versioning and optimistic concurrency to prevent conflicting updates.
+- **CQRS:** Uses event subscribers to build separate, optimized read models (projections).
+- **Event Immutability:** Historical events are never modified; corrections are recorded as new events.
+- **Aggregate Design:** Encourages smaller Aggregates focused on specific business behaviors.
